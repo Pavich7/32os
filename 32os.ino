@@ -1,4 +1,5 @@
 #include <EEPROM.h>
+#include "commands/help.h"
 #include "commands/echo.h"
 #include "commands/reboot.h"
 #include "commands/exit.h"
@@ -12,6 +13,7 @@ struct Command {
 };
 
 Command commands[] = {
+  {"help", help},
   {"echo", echo},
   {"wlan", wlan},
   {"reboot", reboot},
@@ -58,13 +60,15 @@ void setup() {
   while (!Serial);
   Serial.println();
   Serial.println("Welcome to 32os!");
-  Serial.println("Version: 20251201");
+  Serial.println("Version: 20251225");
   const char compile_timestamp[] = __DATE__ " " __TIME__;
   Serial.print("Compiled on: ");
   Serial.println(compile_timestamp);
   Serial.print("SDK Version: ");
   Serial.println(esp_get_idf_version());
   Serial.println("© 2025 Pavich Komansil. All rights reserved.");
+  Serial.println();
+  Serial.println("'help' command to show list of commands.");
   Serial.println();
   printPrompt();
 }
