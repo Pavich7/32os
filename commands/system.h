@@ -29,10 +29,24 @@ void system(const char* param1, const char* param2, const char* param3) {
       Serial.println("Error: incorrect parameter > system set <devices> <value>");
       return;
     }
+  }else if(String(param1) == "erase"){
+    Serial.println("Erasing all data...");
+    if(SPIFFS.format()){
+      Serial.println("File system formatted!");
+    }else{
+      Serial.println("File system format failed!");
+    }
+    EEPROM.write(0,0);
+    EEPROM.commit();
+    Serial.println("EEPROM cleared!");
+    Serial.println("Rebooting...");
+    delay(1000);
+    ESP.restart();
   }else{
     Serial.println("System Utility");
     Serial.println("status <device> - show device status");
     Serial.println("set <device> <value> - set device value");
+    Serial.println("erase - erase all data");
     return;
   }
 }
