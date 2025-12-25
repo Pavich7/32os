@@ -68,7 +68,7 @@ void setup() {
   }
   EEPROM.begin(1);
   int cpu_freq = EEPROM.read(0);
-  if(cpu_freq==0){
+  if(cpu_freq==0 || cpu_freq==255){
     cpu_freq=240;
   }
   setCpuFrequencyMhz(cpu_freq);

@@ -5,11 +5,11 @@ void listDir(fs::FS &fs, const char *dirname, uint8_t levels) {
 
   File root = fs.open(dirname);
   if (!root) {
-    Serial.println("- failed to open directory");
+    Serial.println("Failed to open directory");
     return;
   }
   if (!root.isDirectory()) {
-    Serial.println(" - not a directory");
+    Serial.println("Not a directory");
     return;
   }
 
@@ -36,11 +36,10 @@ void readFile(fs::FS &fs, const char *path) {
 
   File file = fs.open(path);
   if (!file || file.isDirectory()) {
-    Serial.println("- failed to open file for reading");
+    Serial.println("Failed to open file for reading");
     return;
   }
 
-  Serial.println("- read from file:");
   while (file.available()) {
     Serial.write(file.read());
   }
@@ -53,13 +52,13 @@ void writeFile(fs::FS &fs, const char *path, const char *message) {
 
   File file = fs.open(path, FILE_WRITE);
   if (!file) {
-    Serial.println("- failed to open file for writing");
+    Serial.println("Failed to open file for writing");
     return;
   }
   if (file.print(message)) {
-    Serial.println("- file written");
+    Serial.println("File written");
   } else {
-    Serial.println("- write failed");
+    Serial.println("Write failed!");
   }
   file.close();
 }
@@ -67,8 +66,8 @@ void writeFile(fs::FS &fs, const char *path, const char *message) {
 void deleteFile(fs::FS &fs, const char *path) {
   Serial.printf("Deleting file: %s\r\n", path);
   if (fs.remove(path)) {
-    Serial.println("- file deleted");
+    Serial.println("File deleted");
   } else {
-    Serial.println("- delete failed");
+    Serial.println("Delete failed");
   }
 }

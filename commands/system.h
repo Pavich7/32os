@@ -30,13 +30,14 @@ void system(const char* param1, const char* param2, const char* param3) {
       return;
     }
   }else if(String(param1) == "erase"){
-    Serial.println("Erasing all data...");
+    Serial.println("Erasing File System...");
     if(SPIFFS.format()){
       Serial.println("File system formatted!");
     }else{
       Serial.println("File system format failed!");
     }
-    EEPROM.write(0,0);
+    Serial.println("Clearing EEPROM...");
+    EEPROM.write(0,0xFF);
     EEPROM.commit();
     Serial.println("EEPROM cleared!");
     Serial.println("Rebooting...");
