@@ -5,6 +5,7 @@
 #include "commands/exit.h"
 #include "commands/wlan.h"
 #include "commands/system.h"
+#include "commands/gpio.h"
 #include "commands/clear.h"
 
 struct Command {
@@ -19,6 +20,7 @@ Command commands[] = {
   {"reboot", reboot},
   {"exit", exit},
   {"system", system},
+  {"gpio", gpio},
   {"clear", clear},
 };
 
