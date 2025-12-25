@@ -1,3 +1,5 @@
+#include "FS.h"
+#include "SPIFFS.h"
 #include <EEPROM.h>
 #include "commands/help.h"
 #include "commands/echo.h"
@@ -6,6 +8,7 @@
 #include "commands/wlan.h"
 #include "commands/system.h"
 #include "commands/gpio.h"
+#include "commands/ls.h"
 #include "commands/clear.h"
 
 struct Command {
@@ -21,6 +24,7 @@ Command commands[] = {
   {"exit", exit},
   {"system", system},
   {"gpio", gpio},
+  {"ls", ls},
   {"clear", clear},
 };
 
@@ -53,6 +57,9 @@ void runCommand(const char* input) {
 
 void setup() {
   Serial.begin(115200);
+  if (!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED)) {
+    Serial.println("SPIFFS Mount Failed!");
+  }
   EEPROM.begin(1);
   int cpu_freq = EEPROM.read(0);
   if(cpu_freq==0){

@@ -6,5 +6,6 @@ void help(const char* param1, const char* param2, const char* param3) {
   Serial.println("exit - exit the serial.");
   Serial.println("system - manage system settings.");
   Serial.println("gpio - manage GPIO settings.");
+  Serial.println("ls - list files in the filesystem.");
   Serial.println("clear - clear the screen.");
 }
