@@ -10,6 +10,8 @@
 #include "commands/gpio.h"
 #include "commands/ls.h"
 #include "commands/touch.h"
+#include "commands/cat.h"
+#include "commands/rm.h"
 #include "commands/clear.h"
 
 struct Command {
@@ -27,6 +29,8 @@ Command commands[] = {
   {"gpio", gpio},
   {"ls", ls},
   {"touch", touch},
+  {"cat", cat},
+  {"rm", rm},
   {"clear", clear},
 };
 
