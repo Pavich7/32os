@@ -45,6 +45,7 @@ void readFile(fs::FS &fs, const char *path) {
     Serial.write(file.read());
   }
   file.close();
+  Serial.println();
 }
 
 void writeFile(fs::FS &fs, const char *path, const char *message) {
