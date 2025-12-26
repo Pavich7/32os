@@ -10,5 +10,6 @@ void help(const char* param1, const char* param2, const char* param3) {
   Serial.println("touch - create a file.");
   Serial.println("cat - read a file.");
   Serial.println("rm - delete a file.");
+  Serial.println("date - manage date and time.");
   Serial.println("clear - clear the screen.");
 }

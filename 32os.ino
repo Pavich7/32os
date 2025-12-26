@@ -12,6 +12,7 @@
 #include "commands/touch.h"
 #include "commands/cat.h"
 #include "commands/rm.h"
+#include "commands/date.h"
 #include "commands/clear.h"
 
 struct Command {
@@ -31,6 +32,7 @@ Command commands[] = {
   {"touch", touch},
   {"cat", cat},
   {"rm", rm},
+  {"date", date},
   {"clear", clear},
 };
 
