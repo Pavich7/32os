@@ -1,6 +1,7 @@
 #include "FS.h"
 #include "SPIFFS.h"
 #include <EEPROM.h>
+#include <Preferences.h>
 #include "commands/help.h"
 #include "commands/echo.h"
 #include "commands/reboot.h"
@@ -74,6 +75,15 @@ void setup() {
     cpu_freq=240;
   }
   setCpuFrequencyMhz(cpu_freq);
+  preferences.begin("net_credentials", false);
+  String ssid = preferences.getString("ssid", ""); 
+  String password = preferences.getString("password", "");
+  preferences.end();
+  if (ssid == "" || password == ""){
+    Serial.println("No saved network credentials found.");
+  }else{
+    wlan("connect", ssid.c_str(), password.c_str());
+  }
   while (!Serial);
   Serial.println();
   Serial.println("Welcome to 32os!");

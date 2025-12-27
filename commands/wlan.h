@@ -1,5 +1,7 @@
 #include <WiFi.h>
 
+Preferences preferences;
+
 void wlan(const char* param1, const char* param2, const char* param3) {
   if (param1 == nullptr || strlen(param1) == 0) {
     Serial.println("Error: missing parameter");
@@ -52,6 +54,10 @@ void wlan(const char* param1, const char* param2, const char* param3) {
     Serial.println(WiFi.localIP());
     Serial.print("RSSI: ");
     Serial.println(WiFi.RSSI());
+    preferences.begin("net_credentials", false);
+    preferences.putString("ssid", param2); 
+    preferences.putString("password", param3);
+    preferences.end();
   }else if(String(param1) == "status"){
     if(WiFi.status() != WL_CONNECTED) {
       Serial.println("Status: Not connect");
