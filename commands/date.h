@@ -7,6 +7,9 @@ void date(const char* param1, const char* param2, const char* param3) {
         return;
     }
     configTime(atoi(param2)*3600, 0, "pool.ntp.org");
+    preferences.begin("timezone", false);
+    preferences.putInt("gmt", atoi(param2)); 
+    preferences.end();
     Serial.println("Timezone set.");
   }else if(String(param1) == "help"){
     Serial.println("Date/Time Utility");

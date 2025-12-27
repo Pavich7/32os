@@ -67,12 +67,16 @@ void runCommand(const char* input) {
 void setup() {
   Serial.begin(115200);
   if (!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED)) {
-    Serial.println("SPIFFS Mount Failed!");
+    Serial.println("File System Mount Failed!");
+  }else{
+    Serial.println("File System Mounted.");
   }
   preferences.begin("sys_config", false);
   int cpu_freq = preferences.getInt("cpu_freq", 240);
   preferences.end();
   setCpuFrequencyMhz(cpu_freq);
+  Serial.print("CPU Frequency set to ");
+  Serial.println(cpu_freq);
   preferences.begin("net_credentials", false);
   String ssid = preferences.getString("ssid", ""); 
   String password = preferences.getString("password", "");
@@ -82,6 +86,16 @@ void setup() {
   }else{
     wlan("connect", ssid.c_str(), password.c_str());
   }
+  preferences.begin("timezone", false);
+  int gmt = preferences.getInt("gmt", 0);
+  preferences.end();
+  if(gmt == 0){
+    Serial.println("No saved timezone found. Using GMT 0.");
+  }else{
+    Serial.print("Timezone found. GMT ");
+    Serial.println(gmt);
+  }
+  configTime(gmt*3600, 0, "pool.ntp.org");
   while (!Serial);
   Serial.println();
   Serial.println("Welcome to 32os!");
