@@ -14,6 +14,7 @@
 #include "commands/cat.h"
 #include "commands/rm.h"
 #include "commands/date.h"
+#include "commands/uname.h"
 #include "commands/clear.h"
 
 struct Command {
@@ -34,6 +35,7 @@ Command commands[] = {
   {"cat", cat},
   {"rm", rm},
   {"date", date},
+  {"uname", uname},
   {"clear", clear},
 };
 
@@ -67,7 +69,8 @@ void runCommand(const char* input) {
 void setup() {
   Serial.begin(115200);
   Serial.println();
-  Serial.println("32os version 20251227");
+  Serial.print("32os version ");
+  Serial.println(VERSION);
   const char compile_timestamp[] = __DATE__ " " __TIME__;
   Serial.print("Compiled on: ");
   Serial.println(compile_timestamp);
