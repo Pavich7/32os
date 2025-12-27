@@ -66,6 +66,13 @@ void runCommand(const char* input) {
 
 void setup() {
   Serial.begin(115200);
+  Serial.println();
+  Serial.println("32os version 20251227");
+  const char compile_timestamp[] = __DATE__ " " __TIME__;
+  Serial.print("Compiled on: ");
+  Serial.println(compile_timestamp);
+  Serial.print("SDK Version: ");
+  Serial.println(esp_get_idf_version());
   if (!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED)) {
     Serial.println("File System Mount Failed!");
   }else{
@@ -99,12 +106,6 @@ void setup() {
   while (!Serial);
   Serial.println();
   Serial.println("Welcome to 32os!");
-  Serial.println("Version: 20251225");
-  const char compile_timestamp[] = __DATE__ " " __TIME__;
-  Serial.print("Compiled on: ");
-  Serial.println(compile_timestamp);
-  Serial.print("SDK Version: ");
-  Serial.println(esp_get_idf_version());
   Serial.println("© 2025 Pavich Komansil. All rights reserved.");
   Serial.println();
   Serial.println("'help' command to show list of commands.");

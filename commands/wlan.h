@@ -41,9 +41,9 @@ void wlan(const char* param1, const char* param2, const char* param3) {
     unsigned long currentMillis = millis();
     while (WiFi.status() != WL_CONNECTED) {
       Serial.print('.');
-      delay(1000);
+      delay(1500);
       currentMillis = millis();
-      if (currentMillis - previousMillis > 10000) {
+      if (currentMillis - previousMillis > 9000) {
         previousMillis = currentMillis;
         Serial.println("Connect Timeout");
         WiFi.disconnect();
