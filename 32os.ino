@@ -1,6 +1,6 @@
 #include "FS.h"
 #include "SPIFFS.h"
-#include <EEPROM.h>
+#include <nvs_flash.h>
 #include <Preferences.h>
 #include "commands/help.h"
 #include "commands/echo.h"
@@ -69,11 +69,9 @@ void setup() {
   if (!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED)) {
     Serial.println("SPIFFS Mount Failed!");
   }
-  EEPROM.begin(1);
-  int cpu_freq = EEPROM.read(0);
-  if(cpu_freq==0 || cpu_freq==255){
-    cpu_freq=240;
-  }
+  preferences.begin("sys_config", false);
+  int cpu_freq = preferences.getInt("cpu_freq", 240);
+  preferences.end();
   setCpuFrequencyMhz(cpu_freq);
   preferences.begin("net_credentials", false);
   String ssid = preferences.getString("ssid", ""); 

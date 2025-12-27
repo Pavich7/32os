@@ -22,8 +22,9 @@ void system(const char* param1, const char* param2, const char* param3) {
         Serial.println("Error: incorrect parameter > system set cpu <value>");
         return;
       }
-      EEPROM.write(0, atoi(param3));
-      EEPROM.commit();
+      preferences.begin("sys_config", false);
+      preferences.putInt("cpu_freq", atoi(param3));
+      preferences.end();
       Serial.println("Setting will apply on next reboot.");
     }else{
       Serial.println("Error: incorrect parameter > system set <devices> <value>");
@@ -36,10 +37,20 @@ void system(const char* param1, const char* param2, const char* param3) {
     }else{
       Serial.println("File system format failed!");
     }
-    Serial.println("Clearing EEPROM...");
-    EEPROM.write(0,0xFF);
-    EEPROM.commit();
-    Serial.println("EEPROM cleared!");
+    Serial.println("Erasing Preferences...");
+    esp_err_t err = nvs_flash_erase();
+    if (err == ESP_OK) {
+      Serial.println("Preferences erased!");
+    } else {
+      Serial.printf("Error erasing Preferences: %s\n", esp_err_to_name(err));
+    }
+    err = nvs_flash_init();
+    if (err == ESP_OK) {
+      Serial.println("Preferences initialized!");
+    } else {
+      Serial.printf("Error initializing Preferences: %s\n", esp_err_to_name(err));
+    }
+    Serial.println("Preferences cleared!");
     Serial.println("Rebooting...");
     delay(1000);
     ESP.restart();
