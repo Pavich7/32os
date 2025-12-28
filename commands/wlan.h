@@ -80,12 +80,20 @@ void wlan(const char* param1, const char* param2, const char* param3) {
   }else if(String(param1) == "disconnect"){
     WiFi.disconnect();
     Serial.println("Disconnected");
+  }else if(String(param1) == "forget"){
+    WiFi.disconnect();
+    preferences.begin("net_credentials", false);
+    preferences.putString("ssid", ""); 
+    preferences.putString("password", "");
+    preferences.end();
+    Serial.println("Network credentials forgotten");
   }else{
     Serial.println("Wireless Utility");
     Serial.println("list - List all WiFi and RSSI");
     Serial.println("status - Show WiFi status");
     Serial.println("connect <ssid> <password> - Connect to WiFi");
     Serial.println("connect-last - Connect to last WiFi");
+    Serial.println("forget - Forget saved WiFi credentials");
     Serial.println("disconnect - Disconnect WiFi");
     return;
   }
