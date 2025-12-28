@@ -111,15 +111,7 @@ void setup() {
   setCpuFrequencyMhz(cpu_freq);
   Serial.print("CPU Frequency set to ");
   Serial.println(cpu_freq);
-  preferences.begin("net_credentials", false);
-  String ssid = preferences.getString("ssid", ""); 
-  String password = preferences.getString("password", "");
-  preferences.end();
-  if (ssid == "" || password == ""){
-    Serial.println("No saved network credentials found.");
-  }else{
-    wlan("connect", ssid.c_str(), password.c_str());
-  }
+  wlan("connect-last", nullptr, nullptr);
   preferences.begin("timezone", false);
   int gmt = preferences.getInt("gmt", 0);
   preferences.end();

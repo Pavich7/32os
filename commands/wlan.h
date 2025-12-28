@@ -58,6 +58,16 @@ void wlan(const char* param1, const char* param2, const char* param3) {
     preferences.putString("ssid", param2); 
     preferences.putString("password", param3);
     preferences.end();
+  }else if(String(param1) == "connect-last"){
+    preferences.begin("net_credentials", false);
+    String ssid = preferences.getString("ssid", "");
+    String password = preferences.getString("password", "");
+    preferences.end();
+    if (ssid == "" || password == ""){
+      Serial.println("No saved network credentials found.");
+    }else{
+      wlan("connect", ssid.c_str(), password.c_str());
+    }
   }else if(String(param1) == "status"){
     if(WiFi.status() != WL_CONNECTED) {
       Serial.println("Status: Not connect");
@@ -75,6 +85,7 @@ void wlan(const char* param1, const char* param2, const char* param3) {
     Serial.println("list - List all WiFi and RSSI");
     Serial.println("status - Show WiFi status");
     Serial.println("connect <ssid> <password> - Connect to WiFi");
+    Serial.println("connect-last - Connect to last WiFi");
     Serial.println("disconnect - Disconnect WiFi");
     return;
   }
