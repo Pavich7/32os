@@ -165,8 +165,9 @@ void loop() {
         if (inputBuffer.length() > 0) {
           runCommand(inputBuffer.c_str());
           inputBuffer = "";
+        }else{
+          printPrompt();
         }
-        printPrompt();
       }
       continue;
     }
