@@ -43,9 +43,26 @@ Command commands[] = {
 
 const int commandCount = sizeof(commands) / sizeof(commands[0]);
 String inputBuffer = "";
+TaskHandle_t currentTask = NULL;
 
 void printPrompt() {
   Serial.print("$ ");
+}
+
+struct TaskArgs {
+  void (*func)(const char*, const char*, const char*);
+  const char* p1;
+  const char* p2;
+  const char* p3;
+};
+
+void commandTask(void* pvParameters) {
+  TaskArgs* args = (TaskArgs*) pvParameters;
+  args->func(args->p1, args->p2, args->p3);
+  delete args;
+  currentTask = NULL;
+  printPrompt();
+  vTaskDelete(NULL);
 }
 
 void runCommand(const char* input) {
@@ -56,16 +73,21 @@ void runCommand(const char* input) {
   char* param1 = strtok(nullptr, " ");
   char* param2 = strtok(nullptr, " ");
   char* param3 = strtok(nullptr, " ");
-  if (!cmd) {
-    return;
-  }
+  if (!cmd) return;
   for (int i = 0; i < commandCount; i++){
     if (strcmp(commands[i].name, cmd) == 0) {
-      commands[i].func(param1, param2, param3);
+      TaskArgs* args = new TaskArgs{commands[i].func, param1, param2, param3};
+      BaseType_t res = xTaskCreate(commandTask,cmd,4096,args,1,&currentTask);
+      if (res != pdPASS) {
+        Serial.println("Error: failed to create task");
+        delete args;
+        printPrompt();
+      }
       return;
     }
   }
   Serial.println("Error: command not found");
+  printPrompt();
 }
 
 void setup() {
@@ -121,6 +143,15 @@ void setup() {
 void loop() {
   while (Serial.available()) {
     char ch = Serial.read();
+    if (ch == 3) {
+      if (currentTask != NULL) {
+        vTaskDelete(currentTask);
+        currentTask = NULL;
+        Serial.println("^C");
+        printPrompt();
+      }
+      continue;
+    }
     if (ch == '\b' || ch == 127) {
       if (inputBuffer.length() > 0) {
         inputBuffer.remove(inputBuffer.length() - 1);
@@ -129,12 +160,14 @@ void loop() {
       continue;
     }
     if (ch == '\n' || ch == '\r') {
-      Serial.println();
-      if (inputBuffer.length() > 0) {
-        runCommand(inputBuffer.c_str());
-        inputBuffer = "";
+      if (currentTask == NULL){
+        Serial.println();
+        if (inputBuffer.length() > 0) {
+          runCommand(inputBuffer.c_str());
+          inputBuffer = "";
+        }
+        printPrompt();
       }
-      printPrompt();
       continue;
     }
     if (isPrintable(ch)) {

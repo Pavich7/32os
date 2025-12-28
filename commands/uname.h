@@ -1,4 +1,4 @@
-#define VERSION 20251227
+#define VERSION 20251228
 
 void uname(const char* param1, const char* param2, const char* param3) {
   Serial.print("32os version ");
