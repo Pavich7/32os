@@ -3,6 +3,7 @@
 #include <nvs_flash.h>
 #include <Preferences.h>
 #include "system/command.h"
+#include "system/history.h"
 
 void setup() {
   Serial.begin(115200);
@@ -69,6 +70,7 @@ void loop() {
       if (currentTask == NULL){
         Serial.println();
         if (inputBuffer.length() > 0) {
+          recordHistory(inputBuffer.c_str());
           runCommand(inputBuffer.c_str());
           inputBuffer = "";
         }else{

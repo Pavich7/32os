@@ -12,6 +12,7 @@
 #include "commands/date.h"
 #include "commands/uname.h"
 #include "commands/uptime.h"
+#include "commands/history.h"
 #include "commands/clear.h"
 
 struct Command {
@@ -34,6 +35,7 @@ Command commands[] = {
   {"date", date},
   {"uname", uname},
   {"uptime", uptime},
+  {"history", history},
   {"clear", clear},
 };
 
