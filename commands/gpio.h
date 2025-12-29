@@ -20,10 +20,22 @@ void gpio(const char* param1, const char* param2, const char* param3) {
     Serial.print(atoi(param2));
     Serial.print(" to value: ");
     Serial.println(atoi(param3));
+  }else if(String(param1) == "set-analog"){
+    if(param3 == nullptr || strlen(param3) == 0 || param2 == nullptr || strlen(param2) == 0){
+        Serial.println("Error: incorrect parameter > gpio set-analog <pin> <value>");
+        return;
+    }
+    pinMode(atoi(param2), OUTPUT);
+    analogWrite(atoi(param2), atoi(param3));
+    Serial.print("Set pin: ");
+    Serial.print(atoi(param2));
+    Serial.print(" to value: ");
+    Serial.println(atoi(param3));
   }else{
     Serial.println("GPIO Utility");
-    Serial.println("status <pin> - show pin status.");
+    Serial.println("status <pin> - show pin status. (not support analog)");
     Serial.println("set <pin> <value> - set pin value.");
+    Serial.println("set-analog <pin> <value> - set pin analog value.");
     return;
   }
 }
