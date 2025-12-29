@@ -63,6 +63,7 @@ void loop() {
       if (inputBuffer.length() > 0) {
         inputBuffer.remove(inputBuffer.length() - 1);
         Serial.print("\b \b");
+        historyIndex = -1;
       }
       continue;
     }
@@ -73,13 +74,43 @@ void loop() {
           recordHistory(inputBuffer.c_str());
           runCommand(inputBuffer.c_str());
           inputBuffer = "";
+          historyIndex = -1;
         }else{
           printPrompt();
         }
       }
       continue;
     }
+    if (ch == 27 && currentTask == NULL) {
+      while (Serial.available() < 2);
+      char ch1 = Serial.read();
+      char ch2 = Serial.read();
+      if (ch1 == '[') {
+        if (ch2 == 'A') {
+          inputBuffer = getPrevHistory();
+          Serial.print("\r");
+          for (int i = 0; i < 80; i++) {
+            Serial.print(" ");
+          }
+          Serial.print("\r");
+          printPrompt();
+          Serial.print(inputBuffer);
+        } else if (ch2 == 'B') {
+          inputBuffer = getNextHistory();
+          Serial.print("\r");
+          for (int i = 0; i < 80; i++) {
+            Serial.print(" ");
+          }
+          Serial.print("\r");
+          printPrompt();
+          Serial.print(inputBuffer);
+        }
+      }
+      continue;
+    }
+
     if (isPrintable(ch)) {
+      historyIndex = -1;
       inputBuffer += ch;
       Serial.print(ch);
     }
