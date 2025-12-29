@@ -15,7 +15,7 @@ void setup() {
   Serial.println(compile_timestamp);
   Serial.print("SDK Version: ");
   Serial.println(esp_get_idf_version());
-  if (!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED)) {
+  if (!SPIFFS.begin(true)) {
     Serial.println("File System Mount Failed!");
   }else{
     Serial.println("File System Mounted.");
