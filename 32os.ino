@@ -40,7 +40,7 @@ void setup() {
   while (!Serial);
   Serial.println();
   Serial.println("Welcome to 32os!");
-  Serial.println("© 2025 Pavich Komansil. All rights reserved.");
+  Serial.println("© 2026 Pavich Komansil. All rights reserved.");
   Serial.println();
   Serial.println("'help' command to show list of commands.");
   Serial.println();
