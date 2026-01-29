@@ -28,11 +28,7 @@ void wlan(const char* param1, const char* param2, const char* param3) {
         delay(10);
       }
     }
-  }else if(String(param1) == "connect"){
-    if (param2 == nullptr || strlen(param2) == 0 || param3 == nullptr || strlen(param3) == 0) {
-      Serial.println("Error: incorrect parameter > wlan connect <ssid> <password>");
-      return;
-    }
+  }else if(String(param1) == "internal-connect"){
     WiFi.disconnect();
     delay(100);
     WiFi.begin(String(param2), String(param3));
@@ -54,10 +50,6 @@ void wlan(const char* param1, const char* param2, const char* param3) {
     Serial.println(WiFi.localIP());
     Serial.print("RSSI: ");
     Serial.println(WiFi.RSSI());
-    preferences.begin("net_credentials", false);
-    preferences.putString("ssid", param2); 
-    preferences.putString("password", param3);
-    preferences.end();
   }else if(String(param1) == "connect-last"){
     preferences.begin("net_credentials", false);
     String ssid = preferences.getString("ssid", "");
@@ -66,8 +58,16 @@ void wlan(const char* param1, const char* param2, const char* param3) {
     if (ssid == "" || password == ""){
       Serial.println("No saved network credentials found.");
     }else{
-      wlan("connect", ssid.c_str(), password.c_str());
+      wlan("internal-connect", ssid.c_str(), password.c_str());
     }
+  }else if(String(param1) == "connect"){
+    //Workaround for connect timeout issue by calling save then connect-last instead of directly connect.
+    if (param2 == nullptr || strlen(param2) == 0 || param3 == nullptr || strlen(param3) == 0) {
+      Serial.println("Error: incorrect parameter > wlan connect <ssid> <password>");
+      return;
+    }
+    wlan("save", param2, param3);
+    wlan("connect-last", nullptr, nullptr);
   }else if(String(param1) == "status"){
     if(WiFi.status() != WL_CONNECTED) {
       Serial.println("Status: Not connect");
