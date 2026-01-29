@@ -87,12 +87,22 @@ void wlan(const char* param1, const char* param2, const char* param3) {
     preferences.putString("password", "");
     preferences.end();
     Serial.println("Network credentials forgotten");
+  }else if(String(param1) == "save"){
+    if (param2 == nullptr || strlen(param2) == 0 || param3 == nullptr || strlen(param3) == 0) {
+      Serial.println("Error: incorrect parameter > wlan save <ssid> <password>");
+      return;
+    }
+    preferences.begin("net_credentials", false);
+    preferences.putString("ssid", param2); 
+    preferences.putString("password", param3);
+    preferences.end();
   }else{
     Serial.println("Wireless Utility");
     Serial.println("list - List all WiFi and RSSI");
     Serial.println("status - Show WiFi status");
     Serial.println("connect <ssid> <password> - Connect to WiFi");
     Serial.println("connect-last - Connect to last WiFi");
+    Serial.println("save - Save WiFi credentials");
     Serial.println("forget - Forget saved WiFi credentials");
     Serial.println("disconnect - Disconnect WiFi");
     return;
