@@ -1,4 +1,4 @@
-#define VERSION 20260129
+#define VERSION 20260308
 
 void uname(const char* param1, const char* param2, const char* param3) {
   Serial.print("32os version ");
