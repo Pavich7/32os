@@ -47,9 +47,7 @@ void wlan(const char* param1, const char* param2, const char* param3) {
       }
     }
     Serial.println();
-    Serial.println(WiFi.localIP());
-    Serial.print("RSSI: ");
-    Serial.println(WiFi.RSSI());
+    wlan("status", nullptr, nullptr);
   }else if(String(param1) == "connect-last"){
     preferences.begin("net_credentials", false);
     String ssid = preferences.getString("ssid", "");
@@ -70,9 +68,12 @@ void wlan(const char* param1, const char* param2, const char* param3) {
     wlan("connect-last", nullptr, nullptr);
   }else if(String(param1) == "status"){
     if(WiFi.status() != WL_CONNECTED) {
-      Serial.println("Status: Not connect");
+      Serial.println("WiFi not connected");
     }else{
-      Serial.println("Status: Connected");
+      Serial.println("WiFi Connected");
+      Serial.print("SSID: ");
+      Serial.println(WiFi.SSID()); 
+      Serial.print("IP: ");
       Serial.println(WiFi.localIP());
       Serial.print("RSSI: ");
       Serial.println(WiFi.RSSI());
