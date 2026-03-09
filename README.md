@@ -2,6 +2,9 @@
 
 **An open-source serial command line interface operating system for ESP32 Series. Inspired by Linux.**
 
+> [!TIP]  
+> The code is partially vibe coded, and the file structure is somewhat messy. It does not follow industrial standards, so don’t rely on it for production use.
+
 ## ⭐ Features  
 
 - **File System support**  
