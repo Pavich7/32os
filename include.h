@@ -1,5 +1,7 @@
 #pragma once
 
+#define VERSION 20260308
+
 #include <Arduino.h>
 #include <time.h>
 #include <WiFi.h>
@@ -24,8 +26,6 @@ extern Preferences preferences;
 #include "commands/touch.h"
 #include "commands/cat.h"
 #include "commands/rm.h"
-#define VERSION 20260308
-
 #include "commands/date.h"
 #include "commands/uname.h"
 #include "commands/uptime.h"
