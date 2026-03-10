@@ -21,9 +21,14 @@
 
 ### ⚙️ Building the Project  
 
+For the latest stable release, grab it from [here](https://github.com/Pavich7/32os/releases).
+
+Or, if you prefer the latest commit from the development branch:
 ```bash
 git clone https://github.com/Pavich7/32os.git
 ```
+Then
+
 - Open the `.ino` file in **Arduino IDE**  
 - Select your **ESP32 board type** and **port**  
 - Hit **Upload**  
