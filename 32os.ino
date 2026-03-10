@@ -2,6 +2,22 @@
 
 Preferences preferences;
 
+static int cursorPos = 0;
+
+static void redrawInputLine() {
+  Serial.print("\r");
+  for (int i = 0; i < 80; i++) {
+    Serial.print(" ");
+  }
+  Serial.print("\r");
+  printPrompt();
+  Serial.print(inputBuffer);
+  int moveLeft = inputBuffer.length() - cursorPos;
+  for (int i = 0; i < moveLeft; i++) {
+    Serial.print("\b");
+  }
+}
+
 void setup() {
   Serial.begin(115200);
   Serial.println();
@@ -57,10 +73,11 @@ void loop() {
       continue;
     }
     if (ch == '\b' || ch == 127) {
-      if (inputBuffer.length() > 0) {
-        inputBuffer.remove(inputBuffer.length() - 1);
-        Serial.print("\b \b");
+      if (cursorPos > 0) {
+        inputBuffer.remove(cursorPos - 1, 1);
+        cursorPos--;
         historyIndex = -1;
+        redrawInputLine();
       }
       continue;
     }
@@ -71,6 +88,7 @@ void loop() {
           recordHistory(inputBuffer.c_str());
           runCommand(inputBuffer.c_str());
           inputBuffer = "";
+          cursorPos = 0;
           historyIndex = -1;
         }else{
           printPrompt();
@@ -85,22 +103,22 @@ void loop() {
       if (ch1 == '[') {
         if (ch2 == 'A') {
           inputBuffer = getPrevHistory();
-          Serial.print("\r");
-          for (int i = 0; i < 80; i++) {
-            Serial.print(" ");
-          }
-          Serial.print("\r");
-          printPrompt();
-          Serial.print(inputBuffer);
+          cursorPos = inputBuffer.length();
+          redrawInputLine();
         } else if (ch2 == 'B') {
           inputBuffer = getNextHistory();
-          Serial.print("\r");
-          for (int i = 0; i < 80; i++) {
-            Serial.print(" ");
+          cursorPos = inputBuffer.length();
+          redrawInputLine();
+        } else if (ch2 == 'D') {
+          if (cursorPos > 0) {
+            cursorPos--;
+            Serial.print("\b");
           }
-          Serial.print("\r");
-          printPrompt();
-          Serial.print(inputBuffer);
+        } else if (ch2 == 'C') {
+          if (cursorPos < inputBuffer.length()) {
+            Serial.print(inputBuffer[cursorPos]);
+            cursorPos++;
+          }
         }
       }
       continue;
@@ -108,8 +126,9 @@ void loop() {
 
     if (isPrintable(ch)) {
       historyIndex = -1;
-      inputBuffer += ch;
-      Serial.print(ch);
+      inputBuffer = inputBuffer.substring(0, cursorPos) + ch + inputBuffer.substring(cursorPos);
+      cursorPos++;
+      redrawInputLine();
     }
   }
 }

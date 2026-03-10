@@ -2,3 +2,4 @@
 
 - FileSystem: Fixed issue where `touch` wrote garbage data into files.
 - Shell: Support double-quoted arguments (e.g., `echo "hello world"`).
+- Shell: Added left/right arrow editing for the command line.
