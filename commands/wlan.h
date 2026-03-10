@@ -1,6 +1,4 @@
-#include <WiFi.h>
-
-Preferences preferences;
+#pragma once
 
 void wlan(const char* param1, const char* param2, const char* param3) {
   if (param1 == nullptr || strlen(param1) == 0) {

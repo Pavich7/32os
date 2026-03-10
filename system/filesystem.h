@@ -1,3 +1,5 @@
+#pragma once
+
 void listDir(fs::FS &fs, const char *dirname, uint8_t levels) {
   Serial.printf("Listing directory: %s\r\n", dirname);
 

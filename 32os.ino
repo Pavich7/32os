@@ -1,9 +1,6 @@
-#include "FS.h"
-#include "SPIFFS.h"
-#include <nvs_flash.h>
-#include <Preferences.h>
-#include "system/command.h"
-#include "system/history.h"
+#include "include.h"
+
+Preferences preferences;
 
 void setup() {
   Serial.begin(115200);

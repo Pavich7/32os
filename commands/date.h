@@ -1,4 +1,4 @@
-#include "time.h"
+#pragma once
 
 void date(const char* param1, const char* param2, const char* param3) {
   if(String(param1) == "set"){

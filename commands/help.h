@@ -1,3 +1,5 @@
+#pragma once
+
 void help(const char* param1, const char* param2, const char* param3) {
   Serial.println("help - show list of commands.");
   Serial.println("echo - echo input text.");

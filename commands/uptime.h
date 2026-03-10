@@ -1,3 +1,5 @@
+#pragma once
+
 void uptime(const char* param1, const char* param2, const char* param3) {
   unsigned long ms = millis();
   unsigned long seconds = ms / 1000;

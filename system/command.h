@@ -1,19 +1,4 @@
-#include "commands/help.h"
-#include "commands/echo.h"
-#include "commands/reboot.h"
-#include "commands/exit.h"
-#include "commands/wlan.h"
-#include "commands/system.h"
-#include "commands/gpio.h"
-#include "commands/ls.h"
-#include "commands/touch.h"
-#include "commands/cat.h"
-#include "commands/rm.h"
-#include "commands/date.h"
-#include "commands/uname.h"
-#include "commands/uptime.h"
-#include "commands/history.h"
-#include "commands/clear.h"
+#pragma once
 
 struct Command {
   const char* name;

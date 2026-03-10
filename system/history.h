@@ -1,3 +1,5 @@
+#pragma once
+
 int historyIndex = -1;
 
 void recordHistory(const char* input){
