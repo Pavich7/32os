@@ -63,10 +63,33 @@ void runCommand(const char* input) {
   char buffer[64];
   strncpy(buffer, input, sizeof(buffer));
   buffer[sizeof(buffer)-1] = '\0';
-  char* cmd    = strtok(buffer, " ");
-  char* param1 = strtok(nullptr, " ");
-  char* param2 = strtok(nullptr, " ");
-  char* param3 = strtok(nullptr, " ");
+  char* tokens[4] = {nullptr, nullptr, nullptr, nullptr};
+  int tokenCount = 0;
+  char* p = buffer;
+  while (*p && tokenCount < 4) {
+    while (*p == ' ') p++;
+    if (!*p) break;
+    if (*p == '"') {
+      p++;
+      tokens[tokenCount++] = p;
+      while (*p && *p != '"') p++;
+      if (*p == '"') {
+        *p = '\0';
+        p++;
+      }
+    } else {
+      tokens[tokenCount++] = p;
+      while (*p && *p != ' ') p++;
+      if (*p == ' ') {
+        *p = '\0';
+        p++;
+      }
+    }
+  }
+  char* cmd    = tokens[0];
+  char* param1 = tokens[1];
+  char* param2 = tokens[2];
+  char* param3 = tokens[3];
   if (!cmd) return;
   for (int i = 0; i < commandCount; i++){
     if (strcmp(commands[i].name, cmd) == 0) {

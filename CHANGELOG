@@ -1,3 +1,4 @@
 20260310
 
-- FileSystem: Fixed issue where touch wrote garbage data into files.
+- FileSystem: Fixed issue where `touch` wrote garbage data into files.
+- Shell: Support double-quoted arguments (e.g., `echo "hello world"`).
