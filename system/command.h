@@ -42,10 +42,21 @@ struct TaskArgs {
 void commandTask(void* pvParameters) {
   TaskArgs* args = (TaskArgs*) pvParameters;
   args->func(args->p1, args->p2, args->p3);
+  if (args->p1) free((void*)args->p1);
+  if (args->p2) free((void*)args->p2);
+  if (args->p3) free((void*)args->p3);
   delete args;
   currentTask = NULL;
   printPrompt();
   vTaskDelete(NULL);
+}
+
+static char* allocCopy(const char* src) {
+  if (!src) return nullptr;
+  size_t len = strlen(src) + 1;
+  char* dst = (char*)malloc(len);
+  if (dst) memcpy(dst, src, len);
+  return dst;
 }
 
 void runCommand(const char* input) {
@@ -59,10 +70,13 @@ void runCommand(const char* input) {
   if (!cmd) return;
   for (int i = 0; i < commandCount; i++){
     if (strcmp(commands[i].name, cmd) == 0) {
-      TaskArgs* args = new TaskArgs{commands[i].func, param1, param2, param3};
+      TaskArgs* args = new TaskArgs{commands[i].func, allocCopy(param1), allocCopy(param2), allocCopy(param3)};
       BaseType_t res = xTaskCreate(commandTask,cmd,4096,args,1,&currentTask);
       if (res != pdPASS) {
         Serial.println("Error: failed to create task");
+        if (args->p1) free((void*)args->p1);
+        if (args->p2) free((void*)args->p2);
+        if (args->p3) free((void*)args->p3);
         delete args;
         printPrompt();
       }
