@@ -3,3 +3,4 @@
 - edit: Added `edit` command (overwrite, view, or append file content).
 - touch: Now only creates a file using `touch <filename>` with placeholder text.
 - rm: Added support to `rm *` for deleting all files.
+- shell: Added Ctrl+C support to cancel current input.

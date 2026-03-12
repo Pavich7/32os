@@ -69,6 +69,12 @@ void loop() {
         currentTask = NULL;
         Serial.println("^C");
         printPrompt();
+      }else{
+        inputBuffer = "";
+        cursorPos = 0;
+        historyIndex = -1;
+        Serial.println("^C");
+        printPrompt();
       }
       continue;
     }
