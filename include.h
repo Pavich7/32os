@@ -1,6 +1,6 @@
 #pragma once
 
-#define VERSION 20260310
+#define VERSION 20260312
 
 #include <Arduino.h>
 #include <time.h>
@@ -24,6 +24,7 @@ extern Preferences preferences;
 #include "commands/gpio.h"
 #include "commands/ls.h"
 #include "commands/touch.h"
+#include "commands/edit.h"
 #include "commands/cat.h"
 #include "commands/rm.h"
 #include "commands/date.h"

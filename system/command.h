@@ -15,6 +15,7 @@ Command commands[] = {
   {"gpio", gpio},
   {"ls", ls},
   {"touch", touch},
+  {"edit", edit},
   {"cat", cat},
   {"rm", rm},
   {"date", date},

@@ -1,5 +1,4 @@
-20260310
+20260312
 
-- FileSystem: Fixed issue where `touch` wrote garbage data into files.
-- Shell: Support double-quoted arguments (e.g., `echo "hello world"`).
-- Shell: Added left/right arrow editing for the command line.
+- Edit: Added `edit` command (overwrite, view, or append file content).
+- Touch: Now only creates a file using `touch <filename>` with placeholder text.
