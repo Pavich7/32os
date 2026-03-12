@@ -4,3 +4,4 @@
 - touch: Now only creates a file using `touch <filename>` with placeholder text.
 - rm: Added support to `rm *` for deleting all files.
 - shell: Added Ctrl+C support to cancel current input.
+- shell: Added Ctrl+L support to clear screen.

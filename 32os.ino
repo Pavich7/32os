@@ -78,6 +78,16 @@ void loop() {
       }
       continue;
     }
+    if (ch == 12) {
+      if (currentTask == NULL) {
+        inputBuffer = "";
+        cursorPos = 0;
+        historyIndex = -1;
+        clear(nullptr, nullptr, nullptr);
+        printPrompt();
+      }
+      continue;
+    }
     if (ch == '\b' || ch == 127) {
       if (cursorPos > 0) {
         inputBuffer.remove(cursorPos - 1, 1);
