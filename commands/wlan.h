@@ -74,7 +74,8 @@ void wlan(const char* param1, const char* param2, const char* param3) {
       Serial.print("IP: ");
       Serial.println(WiFi.localIP());
       Serial.print("RSSI: ");
-      Serial.println(WiFi.RSSI());
+      Serial.print(WiFi.RSSI());
+      Serial.println(" dBm");
     }
   }else if(String(param1) == "disconnect"){
     WiFi.disconnect();

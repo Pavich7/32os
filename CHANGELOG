@@ -1,7 +1,3 @@
-20260312
+20260313
 
-- edit: Added `edit` command for overwrite or append file.
-- touch: Now only creates a file using `touch <filename>` with placeholder text.
-- rm: Added support to `rm *` for deleting all files.
-- shell: Added Ctrl+C support to cancel current input.
-- shell: Added Ctrl+L support to clear screen.
+- wlan: Added unit to RSSI status report.
