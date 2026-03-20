@@ -23,6 +23,7 @@ Command commands[] = {
   {"uptime", uptime},
   {"history", history},
   {"clear", clear},
+  {"wget", wget},
 };
 
 const int commandCount = sizeof(commands) / sizeof(commands[0]);

@@ -10,6 +10,7 @@
 #include <nvs_flash.h>
 #include <Preferences.h>
 #include <esp_chip_info.h>
+#include <HTTPClient.h>
 
 extern Preferences preferences;
 
@@ -33,5 +34,6 @@ extern Preferences preferences;
 #include "commands/uptime.h"
 #include "commands/history.h"
 #include "commands/clear.h"
+#include "commands/wget.h"
 
 #include "system/command.h"

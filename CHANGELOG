@@ -1,3 +1,4 @@
 20260320
 
 - system: Added `system chipinfo` for showing chip info.
+- wget: Added `wget` command for downloading file.
