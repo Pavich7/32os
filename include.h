@@ -1,6 +1,6 @@
 #pragma once
 
-#define VERSION 20260313
+#define VERSION 20260320
 
 #include <Arduino.h>
 #include <time.h>
@@ -9,6 +9,7 @@
 #include <SPIFFS.h>
 #include <nvs_flash.h>
 #include <Preferences.h>
+#include <esp_chip_info.h>
 
 extern Preferences preferences;
 

@@ -56,8 +56,23 @@ void system(const char* param1, const char* param2, const char* param3) {
     Serial.println("Rebooting...");
     delay(1000);
     ESP.restart();
+  }else if(String(param1) == "chipinfo"){
+    esp_chip_info_t chip_info;
+    esp_chip_info(&chip_info);
+    Serial.print("Model: ");
+    Serial.println(ESP.getChipModel());
+    Serial.print("Core Count: ");
+    Serial.println(chip_info.cores);
+    Serial.print("Revision: ");
+    Serial.println(chip_info.revision);
+    Serial.print("Features: ");
+    if (chip_info.features & CHIP_FEATURE_BT) Serial.print("BT ");
+    if (chip_info.features & CHIP_FEATURE_BLE) Serial.print("BLE ");
+    if (chip_info.features & CHIP_FEATURE_WIFI_BGN) Serial.print("WiFi ");
+    Serial.println();
   }else{
     Serial.println("System Utility");
+    Serial.println("chipinfo - show chip information");
     Serial.println("status <device> - show device status");
     Serial.println("set <device> <value> - set device value");
     Serial.println("erase - erase all data");
