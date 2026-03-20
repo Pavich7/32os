@@ -18,5 +18,6 @@ void help(const char* param1, const char* param2, const char* param3) {
   Serial.println("uptime - show system uptime.");
   Serial.println("history - show command history.");
   Serial.println("wget - download a file.");
+  Serial.println("httpd - start HTTP server to browse files.");
   Serial.println("clear - clear the screen.");
 }

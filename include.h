@@ -11,6 +11,7 @@
 #include <Preferences.h>
 #include <esp_chip_info.h>
 #include <HTTPClient.h>
+#include <WebServer.h>
 
 extern Preferences preferences;
 
@@ -35,5 +36,6 @@ extern Preferences preferences;
 #include "commands/history.h"
 #include "commands/clear.h"
 #include "commands/wget.h"
+#include "commands/httpd.h"
 
 #include "system/command.h"
