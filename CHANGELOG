@@ -1,5 +1,3 @@
-20260320
+20260321
 
-- system: Added `system chipinfo` for showing chip info.
-- wget: Added `wget` command for downloading file.
-- httpd: Added `httpd` command for allowing to browse file on browser.
+- httpd: httpd now running as daemon using `httpd start|stop` command.
