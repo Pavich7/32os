@@ -1,6 +1,6 @@
 #pragma once
 
-#define VERSION 20260321
+#define VERSION 20260324
 
 #include <Arduino.h>
 #include <time.h>
@@ -37,5 +37,6 @@ extern Preferences preferences;
 #include "commands/clear.h"
 #include "commands/wget.h"
 #include "commands/httpd.h"
+#include "commands/ps.h"
 
 #include "system/command.h"

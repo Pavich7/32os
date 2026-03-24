@@ -25,6 +25,7 @@ Command commands[] = {
   {"clear", clear},
   {"wget", wget},
   {"httpd", httpd},
+  {"ps", ps},
 };
 
 const int commandCount = sizeof(commands) / sizeof(commands[0]);
