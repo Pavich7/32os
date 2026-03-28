@@ -1,6 +1,6 @@
 #pragma once
 
-#define VERSION 20260324
+#define VERSION 20260328
 
 #include <Arduino.h>
 #include <time.h>

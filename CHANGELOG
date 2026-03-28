@@ -1,4 +1,3 @@
-20260324
+20260328
 
-- httpd: httpd now running as daemon using `httpd start|stop` command.
-- ps: New `ps` command for showing running tasks.
+- wget: Add support to http redirect.

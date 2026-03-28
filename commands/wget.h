@@ -7,6 +7,7 @@ void wget(const char* param1, const char* param2, const char* param3) {
   }
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
+    http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
     http.begin(param1);
     int httpCode = http.GET();
     if (httpCode == HTTP_CODE_OK) {
