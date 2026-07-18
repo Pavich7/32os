@@ -20,5 +20,6 @@ void help(const char* param1, const char* param2, const char* param3) {
   Serial.println("wget - download a file.");
   Serial.println("httpd - start HTTP server to browse files.");
   Serial.println("ps - show running tasks.");
+  Serial.println("hostname - set or view hostname.");
   Serial.println("clear - clear the screen.");
 }

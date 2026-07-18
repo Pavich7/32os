@@ -38,5 +38,6 @@ extern Preferences preferences;
 #include "commands/wget.h"
 #include "commands/httpd.h"
 #include "commands/ps.h"
+#include "commands/hostname.h"
 
 #include "system/command.h"

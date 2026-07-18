@@ -29,6 +29,10 @@ void wlan(const char* param1, const char* param2, const char* param3) {
   }else if(String(param1) == "internal-connect"){
     WiFi.disconnect();
     delay(100);
+    preferences.begin("hostname", false);
+    String hostname = preferences.getString("name", "32os");
+    preferences.end();
+    WiFi.setHostname(hostname.c_str());
     WiFi.begin(String(param2), String(param3));
     Serial.print("Connecting to WiFi");
     unsigned long previousMillis = millis();
@@ -73,6 +77,8 @@ void wlan(const char* param1, const char* param2, const char* param3) {
       Serial.println(WiFi.SSID()); 
       Serial.print("IP: ");
       Serial.println(WiFi.localIP());
+      Serial.print("Hostname: ");
+      Serial.println(WiFi.getHostname());
       Serial.print("RSSI: ");
       Serial.print(WiFi.RSSI());
       Serial.println(" dBm");
